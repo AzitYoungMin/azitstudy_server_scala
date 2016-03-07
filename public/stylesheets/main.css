@@ -1,0 +1,6 @@
+.wrap { margin-top: 100px;}
+.login-container{width:400px; margin: auto; text-align: center;}
+.login-container p{padding: 15px;}
+.login-container .input-group{width: 100%; margin-top: 10px;}
+.right{float:right;}
+.text-center th, .text-center td{text-align:center;vertical-align:middle;}

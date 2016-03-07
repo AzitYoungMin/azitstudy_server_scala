@@ -1,0 +1,206 @@
+@import caseClasses.ExamListForAdmin
+@import play.api.libs.json.Json
+
+@(pageSize: Int, activePage: Int, activeList: Seq[ExamListForAdmin], activeSize: Int, examPage: Int, examList: Seq[ExamListForAdmin], examSize: Int)
+
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="monthly-exam page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li><span>모의고사관리</span></li>
+                </ul>
+            </div><!-- .page-bar-->
+            <div class="monthly-exam-main az-pb-50">
+                <div class="list-monthly-exam">
+                    <div class="az-container-style-1">
+                        <div class="form-horizontal">
+                            <div class="form-group portlet light bordered">
+
+                                <div class="col-md-11">
+                                    <select id="newExamYear" class="form-control input-inline input-small">
+                                        <option>2016</option>
+                                        <option>2017</option>
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                        <option>2020</option>
+                                        <option>2021</option>
+                                        <option>2022</option>
+                                        <option>2023</option>
+                                        <option>2024</option>
+                                        <option>2025</option>
+                                    </select>
+                                    <span style="margin-right: 15px;" class="help-inline">년</span>
+                                    <select id="newExamMonth" class="form-control input-inline input-small">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                    </select>
+                                    <span style="margin-right: 15px;" class="help-inline">월</span>
+                                    <input type="text" id="newExamTitle" placeholder="상세내용" data-az-placeholder="상세내용" class="form-control input-inline input-large"/>
+                                </div>
+                                <div class="col-md-1 text-middle">
+                                    <button type="button" class="btn-open-popup btn green" id="addExamBtn">입력</button>
+                                </div>
+                            </div>
+                            <div class="tab-mentor-meet-post-table table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>제목</th>
+                                            <th>선택해제</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @for((exam, index) <- activeList.zipWithIndex) {
+                                        <tr>
+                                            <td>@{activeSize - index - (activePage-1) * pageSize}</td>
+                                            <td><a href="/admin/exam/detail?id=@exam.id">@exam.year 년  @exam.month 월  @exam.title</a></td>
+                                            <td>
+                                                <button onclick="inActive(@exam.id)" class="btn-open-popup btn red">선택해제</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
+                            @helper.pagination(activePage, pageSize, activeSize, (p: Int) => controllers.admin.routes.AdminExamController.list(p, examPage))
+                            <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 15px 0px 15px 0px ;" class="az-gap"></div>
+                            @for((exam, index) <- examList.zipWithIndex) {
+                                <div class="input-group portlet" id="exam@exam.id">
+                                    <span class="input-group-addon" id="sizing-addon1">@{examSize - index - (examPage-1) * pageSize}</span>
+                                    <p class="form-control" ><a href="/admin/exam/detail?id=@exam.id">@exam.year 년 @exam.month 월 @exam.title</a></p>
+                                    <span class="input-group-btn">
+                                @if(exam.isActive == true){
+                                            <button class="btn green" type="button" onclick="edit(@exam.id)">수정</button>
+                                            <button class="btn red" type="button" onclick="deleteExam(@exam.id)">삭제</button>
+                                }else{
+                                            <button class="btn blue" type="button" onclick="active(@exam.id)">선택</button>
+                                            <button class="btn green" type="button" onclick="edit(@exam.id)">수정</button>
+                                            <button class="btn red" type="button" onclick="deleteExam(@exam.id)">삭제</button>
+                                }
+                                    </span>
+                                </div>
+                                <div class="input-group portlet hide" id="edit@exam.id">
+                                    <span class="input-group-addon" id="sizing-addon1">@{examSize - index - (examPage-1) * pageSize}</span>
+                                    <select id="year@exam.id" class="form-control">
+                                        <option>2015</option>
+                                        <option>2016</option>
+                                        <option>2017</option>
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                        <option>2020</option>
+                                        <option>2021</option>
+                                        <option>2022</option>
+                                        <option>2023</option>
+                                        <option>2024</option>
+                                        <option>2025</option>
+                                    </select>
+                                    <span class="input-group-addon" id="sizing-addon1">년</span>
+                                    <select id="month@exam.id" class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                    </select>
+                                    <span class="input-group-addon" id="sizing-addon1">월</span>
+                                    <input type="text" class="form-control" value="@exam.title">
+                                    <span class="input-group-btn">
+                                        <button class="btn green" type="button" onclick="editExam()">입력</button>
+                                        <button class="btn red" type="button" onclick="editCancel(@exam.id)">취소</button>
+                                    </span>
+                                </div>
+                                <script>
+                                    $("#year@exam.id").val("@exam.year");
+                                    $("#month@exam.id").val("@exam.month");
+                                </script>
+                            }
+                        </div>
+                        @helper.pagination(examPage, pageSize, examSize, (p: Int) => controllers.admin.routes.AdminExamController.list(activePage, p))
+                    </div>
+                </div><!-- .list-monthly-exam-->
+            </div><!-- .monthly-exam-main-->
+        </div><!-- .page-content-->
+    </div> <!-- .monthly-exam-->
+
+    <script>
+        function inActive(id){
+            if(confirm("선택해제 하시겠습니까?")){
+                location.href = "/admin/exam/list?inActiveId=" + id;
+            }
+        }
+        function active(id){
+            if(confirm("선택 하시겠습니까?")){
+                location.href = "/admin/exam/list?activeId=" + id;
+            }
+        }
+        function deleteExam(id){
+            if(confirm("삭제 하시겠습니까?")){
+                location.href = "/admin/exam/list?deleteId=" + id;
+            }
+        }
+        function editExam(id){
+
+        }
+        function edit(id){
+            $("#edit"+id).removeClass('hide');
+            $("#exam"+id).addClass('hide');
+        }
+        function editCancel(id){
+            $("#edit"+id).addClass('hide');
+            $("#exam"+id).removeClass('hide');
+        }
+        $("#addExamBtn").click(function(e){
+            var title = $("#newExamTitle").val();
+            var year = $("#newExamYear").val();
+            var month = $("#newExamMonth").val();
+//            alert(title + year + month);
+
+            if(title == "" || title == null){
+                alert("상세내용을 입력해주세요.");
+            }else{
+                $.ajax({
+                    type: 'POST',
+                    url: '@controllers.admin.routes.AdminExamController.addExam()',
+                    data:  '{"title": "'+ title +'", "year": "'+ year  +'", "month": "' + month + '"}',
+                    dataType:  'text',
+                    contentType:'application/json',
+                    success: function(result) {
+                        if(result == "success"){
+                            alert("모의고사 입력이 성공하였습니다.")
+                            location.reload();
+                        }else{
+                            alert("모의고사 입력이 실패하였습니다.")
+                        }
+                    }
+                });
+            }
+        });
+
+        function goDetail(id){
+            alert(id);
+        }
+        $("input [name='examDetail']").click(function(e){
+            alert($(this).attr('data'));
+        });
+
+    </script>
+}

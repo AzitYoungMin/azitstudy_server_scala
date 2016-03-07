@@ -1,0 +1,39 @@
+@(page:Int, pageLength:Int, collectionLength:Long, route:Int => Call, bound:Int = 6)
+@lowbound() = @{
+    ((page.toDouble / bound).floor * bound).toInt
+}
+@highbound() = @{
+    if ((lowbound() + bound) * pageLength >= collectionLength)
+        (collectionLength / pageLength + 1).toInt
+    else
+        lowbound() + bound
+}
+          <div class="az-pagination">
+                    <ul class="pagination">
+
+             <li><a href="@route(1)"><i class="fa fa-angle-double-left"></i></a></li>
+            
+            @if(page == 1){
+            	<li class="first"><a href="#"><i class="fa  fa-angle-left"></i></a></li>
+            } else {
+            	<li><a href="@route(page-1)"><i class="fa  fa-angle-left"></i></a></li>
+            }
+
+            @for(i <- lowbound().max(1) until page) {
+            	<li><a href="@route(i)">@i</a></li>
+            }
+			<li  class="active"><a href="">@page</a></li>
+            @for(i <- page+1 to highbound()) {
+            	<li><a href="@route(i)">@i</a></li>
+            }
+            
+            @if(page < highbound()) {
+            	<li><a href="@route(page+1)"><i class="fa fa-angle-right"></i></a></li>
+            } else {
+            	<li><a href=""><i class="fa fa-angle-right"></i></a></li>
+            }
+            
+            <li><a href="@route(highbound())"><i class="fa fa-angle-double-right"></i></a></li>
+
+          </ul>
+       </div>

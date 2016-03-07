@@ -1,0 +1,243 @@
+@import caseClasses.MentorForPushList
+@(list: Seq[MentorForPushList], page: Int, pageSize: Int, totalSize: Int, university: String, major: String, year: Int, gender: String, subjects: List[Int])
+
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="push page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li><span>푸쉬</span></li>
+                </ul>
+            </div><!-- .page-bar-->
+            <div class="push-main az-pb-50">
+                <div class="block-tab">
+                    <div class="tabbable-custom">
+                        <ul class="nav nav-tabs">
+                            <li><a href="/admin/push/student/auto">학생(자동)</a></li>
+                            <li><a href="/admin/push/student/manual">학생(수동)</a></li>
+                            <li><a href="/admin/push/mentor/auto">멘토(자동)</a></li>
+                            <li class="active"><a href="/admin/push/mentor/manual">멘토(수동)</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-push-mentor-manual" class="tab-push-mentor-manual tab-pane active">
+                                <div class="block-wrapper az-pb-50">
+                                    <div class="block-4">
+                                        <div class="az-container-style-1">
+                                            <div style="padding : 20px 0 0 0 ;" class="az-gap">
+
+                                            </div>
+                                            <div class="portlet az-bg-white">
+                                                <div class="portlet-body form">
+                                                    <form action="#" class="form-horizontal form-bordered">
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">선택과목</label>
+                                                                <div class="col-md-9">
+                                                                    <div class="checkbox-list">
+                                                                        <label class="checkbox-inline"><input type="checkbox" name="subjects" id="subject10000" value="10000"/>국어</label>
+                                                                        <label class="checkbox-inline"><input type="checkbox" name="subjects" id="subject30000" value="30000"/>수학</label>
+                                                                        <label class="checkbox-inline"><input type="checkbox" name="subjects" id="subject50000" value="50000"/>영어</label>
+                                                                        <label class="checkbox-inline"><input type="checkbox" name="subjects" id="subject60000" value="60000"/>사탐</label>
+                                                                        <label class="checkbox-inline"><input type="checkbox" name="subjects" id="subject70000" value="70000"/>과탐</label>
+                                                                        <label class="checkbox-inline"><input type="checkbox" name="subjects" id="subject130000" value="130000"/>예체능</label>
+                                                                    </div>
+                                                                </div>
+                                                                <script>
+                                                                    @for(row <- subjects){
+                                                                         $("#subject@row").parents().addClass("active");
+                                                                         $("#subject@row").prop('checked', true);
+                                                                     }
+                                                                </script>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">학교</label>
+                                                                <div class="col-md-9">
+                                                                    <input type="text" name="university" class="form-control" value="@university"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">전공</label>
+                                                                <div class="col-md-9">
+                                                                    <input type="text" name="major" class="form-control" value="@major"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">학년</label>
+                                                                <div class="col-md-9">
+                                                                    <select name="year" id="year" class="form-control input-medium">
+                                                                        <option value="0">선택</option>
+                                                                        <option value="1">1학년</option>
+                                                                        <option value="2">2학년</option>
+                                                                        <option value="3">3학년</option>
+                                                                        <option value="4">4학년</option>
+                                                                        <option value="5">휴학생</option>
+                                                                        <option value="6">졸업</option>
+                                                                    </select>
+                                                                    <script>
+                                                                      $("#year").val("@year");
+                                                                   </script>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">성별</label>
+                                                                <div class="col-md-9">
+                                                                    <div class="radio-list">
+                                                                        <label class="radio-inline"><input type="radio" value="" name="gender" id="gender"/>전체</label>
+                                                                        <label class="radio-inline"><input type="radio" value="M" name="gender" id="genderM"/>남자</label>
+                                                                        <label class="radio-inline"><input type="radio" value="F" name="gender" id="genderF"/>여자</label>
+                                                                    </div>
+                                                                </div>
+                                                                <script>
+                                                                    $("#gender@gender").parents().addClass("checked");
+                                                                    $("#gender@gender").prop('checked', true);
+//                                                                    $("input[name=gender]:checkbox").click(function() {
+//                                                                        if($(this).id == "genderM"){
+//                                                                            $(this).attr("checked", true);
+//                                                                            $(this).parents().addClass("checked");
+//                                                                            $("#genderF").attr("checked", false);
+//                                                                            $("#genderF").parents().removeClass("checked");
+//                                                                        }else{
+//                                                                            $(this).attr("checked", true);
+//                                                                            $(this).parents().addClass("checked");
+//                                                                            $("#genderM").attr("checked", false);
+//                                                                            $("#genderM").parents().removeClass("checked");
+//                                                                        }
+//                                                                    });
+                                                                </script>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div style="background : #f9f9f9 ; border-left : 0 none ;" class="col-md-12 text-center">
+                                                                    <button type="submit" class="btn green btn-search">검색</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- .block-4-->
+                                    <div class="block-5">
+                                        <div class="az-container-style-1">
+                                            <div class="portlet light bordered">
+                                                <div class="portlet-body">
+                                                    <div class="az-dp-table align-middle">
+                                                        <div class="az-dp-table-cell">
+                                                            <textarea id="message" name="message" rows="6" class="form-control"></textarea>
+                                                        </div>
+                                                        <div style="width : 100px ;" class="az-dp-table-cell text-right">
+                                                            <button type="submit" data-toggle="modal" data-target="#popupConfirmSendInfo" class="btn green">보내기</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- .block-5-->
+                                    <div class="block-6">
+                                        <div class="az-container-style-1">
+                                            <div class="check-all-button">
+                                                <label><input type="checkbox" name="checkAll" id="checkAll"/>전체선택</label>
+                                            </div>
+                                            <div style="padding : 10px 0 0 0 ;" class="az-gap">
+
+                                            </div>
+                                            <script>
+                                                $("#checkAll").click(function() {
+                                                    if($(this).parent().hasClass("checked")){
+                                                        $("input[name=selectedMentor]:checkbox").each(function() {
+                                                            $(this).attr("checked", false);
+                                                            $(this).parents().removeClass("checked");
+                                                        });
+                                                    }else{
+                                                        $("input[name=selectedMentor]:checkbox").each(function() {
+                                                            $(this).attr("checked", true);
+                                                            $(this).parents().addClass("checked");
+                                                        });
+                                                    }
+                                                });
+                                            </script>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover text-center az-bg-white">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">선택</th>
+                                                            <th class="text-center">번호</th>
+                                                            <th class="text-center">이름</th>
+                                                            <th class="text-center">학교</th>
+                                                            <th class="text-center">학년</th>
+                                                            <th class="text-center">전공</th>
+                                                            <th class="text-center">성별</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @for((row, index) <- list.zipWithIndex){
+                                                            <tr>
+                                                                <td><label><input type="checkbox" name="selectedMentor" value ="@row.id"/></label></td>
+                                                                <td>@{totalSize - index}</td>
+                                                                <td>@row.name</td>
+                                                                <td>@row.university</td>
+                                                                <td>@row.year</td>
+                                                                <td>@row.major</td>
+                                                                <td>@row.gender</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+@*//                                            @helper.pagination(page, pageSize, totalSize, (p: Int) => controllers.admin.routes.AdminPushController.mentorManual(page, university, major, year, gender))*@
+                                        </div>
+                                    </div><!-- .block-6-->
+                                </div>
+                            </div><!-- .tab-push-mentor-manual-->
+                        </div>
+                    </div>
+                </div><!-- .block-tab-->
+            </div><!-- .push-main-->
+        </div><!-- .page-content-->
+    </div> <!-- .push-->
+    <div id="popupConfirmSendInfo" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">
+
+                    </button>
+                </div>
+                <div class="modal-body"><h4><strong>해당내용을 보내시겠습니까</strong><!-- Do you want to send this message?--></h4></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn green btn-confirm" id ="send_push">확인</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-default">취소</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- .popupConfirmSendInfo-->
+    <script>
+        $("#send_push").click(function(e){
+            var message = $("#message").val();
+            var ids =  [];
+            $("input[name=selectedMentor]:checked").each(function() {
+                ids.push($(this).val());
+            });
+            $('#popupConfirmSendInfo').modal('hide');
+            if(message == "" || message == null){
+                alert("메세지를 입력해주세요.");
+            }else if(ids.length == 0){
+                alert("선택된 멘토가 없습니다.");
+            }else{
+                $.ajax({
+                    type: 'POST',
+                    url: '@controllers.admin.routes.AdminPushController.manualPush()',
+                    data:  '{"message": "'+ message +'", "ids": "'+ ids  +'", "code": "404"}',
+                    dataType:  'text',
+                    contentType:'application/json',
+                    success: function(result) {
+                        if(result == "success"){
+                            alert("푸쉬 메세지 전송이 성공하였습니다.")
+                        }else{
+                            alert("푸쉬 메세지 전송이 실패하였습니다.")
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+}

@@ -1,0 +1,51 @@
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="payment page-content-wrapper"><div class="page-content"><div class="page-bar"><ul class="page-breadcrumb"><li><span>
+        결제, 환불</span></li></ul></div><!-- .page-bar-->
+        <div class="payment-main az-pb-50">
+            <div class="block-tab">
+                <div class="tabbable-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="/admin/payment/pay">결제</a></li>
+                        <li class="active"><a href="/admin/payment/refund">환불</a></li>
+                        <li><a href="/admin/payment/complete">집행완료</a></li>
+                    </ul>
+            <div class="tab-content">
+                <div id="tab-payment-refund" class="tab-payment-refund tab-pane active"><div class="form-search-wrapper"><form action="#" class="form-search form-horizontal az-container-style-1"><div class="form-body"><div class="form-group"><div class="col-md-7"><select class="form-control input-inline input-small"><option>
+                    2015</option><option>Option 2</option><option>
+                    Option 3</option></select><span style="margin-right : 15 px ;" class="help-inline">
+                    년</span><select class="form-control input-inline input-small"><option>8</option><option>
+                    Option 2</option><option>Option 3</option></select><span class="help-inline">월</span></div>
+                    <div class="col-md-5"><span>월 누적 환불금액 : <strong>156,486,000원</strong></span></div></div>
+                    <div class="form-group"><div class="col-md-3"><select name="test38" class="form-control"><option value="0">
+                        이름</option><option value="1">이메일</option><option value="2">닉네임</option><option value="3">
+                        핸드폰번호</option></select></div>
+                        <div class="col-md-5 col-md-offset-1"><input name="test349" type="search" class="form-control"/></div><div class="col-md-3 text-center"><button type="submit" class="btn green btn-search">
+                            검색</button></div></div></div></form><!-- .form-search--></div><!-- .form-search-wrapper-->
+                    <div style="border-top : 1 px solid #e1e1e1 ; padding-bottom : 15 px ;" class="az-gap"></div>
+                    <div class="table-wrapper table-responsive"><table class="table table-striped table-bordered table-hover text-center"><thead><tr><th class="text-center">
+                        번호</th><th class="text-center">회원구분</th><th class="text-center">이름</th><th class="text-center">
+                        닉네임</th><th class="text-center">이메일</th><th class="text-center">
+                        핸드폰번호</th><th class="text-center">결제금액</th><th class="text-center">
+                        리포트 전송 횟수</th><th class="text-center">환불가능금액</th><th class="text-center">
+                        환불요청금액</th><th class="text-center">계좌번호</th><th class="text-center">
+                        환불 승인 여부</th></tr></thead><tbody><tr><td>1</td><td>학생</td><td>홍길동</td><td>길똥</td><td>
+                        abcd@@edf.com</td><td>010-1111-1111</td><td>100,000</td><td>1</td><td>20,00</td><td>20,00</td><td>
+                        신한, 홍길동, 110-321-321321</td><td> <a href="#" data-toggle="modal" data-target="#popupApproveRefund" class="btn green">
+                        승인</a></td></tr><tr><td>1</td><td>학생</td><td>홍길동</td><td>길똥</td><td>abcd@@edf.com</td><td>
+                        010-1111-1111</td><td>100,000</td><td>1</td><td>20,00</td><td>20,00</td><td>
+                        신한, 홍길동, 110-321-321321</td><td> <a href="#" data-toggle="modal" data-target="#popupApproveRefund" class="btn green">
+                        승인</a></td></tr></tbody></table></div><!--.table-wrapper-->
+                    <div class="az-pagination"><ul class="pagination"><li class="first"><a href="#"><i class="fa fa-angle-double-left"></i></a></li><li><a href="#"><i class="fa fa-angle-left"></i></a></li><li><a href="#">
+                        1</a></li><li><a href="#">2</a></li><li class="active"><a>3</a></li><li><a href="#">
+                        4</a></li><li><a href="#">
+                        5</a></li><li><a href="#"><i class="fa fa-angle-right"></i></a></li><li class="last"><a href="#"><i class="fa fa-angle-double-right"></i></a></li></ul></div><!-- .az-pagination-->
+                </div><!-- .tab-payment-refund-->
+            </div>
+                </div>
+            </div><!-- .block-tab-->
+        </div><!-- .payment-main-->
+    </div><!-- .page-content-->
+    </div> <!-- .payment-->
+
+    <div id="popupApproveRefund" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button></div><div class="modal-body"><h4><strong>환불을 집행하셨습니까?</strong><!-- Do you want to approve the refund?--></h4></div><div class="modal-footer"><a href="#" class="btn green btn-confirm">확인</a><button type="button" data-dismiss="modal" class="btn btn-default">취소</button></div></div></div></div><!-- .popupApproveRefund-->
+}

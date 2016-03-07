@@ -1,0 +1,32 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/admin">Admin Home</a>
+        </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/admin/exam/list">시험 목록</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">회원 관리<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/admin/list/students">학생</a></li>
+                        <li><a href="/admin/list/mentors">멘토</a></li>
+                        <li><a href="/admin/list/teachers">선생</a></li>
+                    </ul>
+                </li>
+                <li><a href="/admin/unreceived/mentors">멘토 회원가입 승인</a></li>
+                <li><a href="/admin/unreceived/teachers">선생 학생추가 승인</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div> <!-- /.navbar-collapse -->
+    </div> <!-- /.container-fluid -->
+</nav>

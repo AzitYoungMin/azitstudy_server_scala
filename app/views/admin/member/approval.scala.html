@@ -1,0 +1,175 @@
+@import caseClasses.UserForApproval
+@(totalElement: Int, users: Seq[UserForApproval], p: Int, perpage: Int, key: String, types: String, memberType: List[Int], approval: Int)
+
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="member page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li><span>회원 관리</span></li>
+                </ul>
+            </div>
+                <!-- .page-bar-->
+
+            <div class="member-main az-pb-50">
+                <div class="block-tab">
+                    <div class="tabbable-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="/admin/member/approval">회원승인</a></li>
+                            <li><a href="/admin/member/withdrawal">회원탈퇴</a></li>
+                            <li><a href="/admin/member">회원목록</a></li>
+                            <li><a href="/admin/member/teacher_student">선생님 학생 추가</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="tab-member-approval" class="tab-member-approval tab-pane active">
+                                <div class="form-search-wrapper">
+                                    <form action="" class="form-search form-horizontal az-container-style-1">
+                                        <div class="form-body">
+                                            <div class="form-group member-type-button">
+                                                <div data-toggle="buttons" class="az-btn-checkbox-wrapper">
+                                                    <label id="type4" class="btn btn-default">
+                                                        <input name="memberType" value="4" type="checkbox" class="toggle"/>멘토
+                                                    </label>
+                                                    <label id="type3" class="btn btn-default">
+                                                        <input name="memberType" value="3" type="checkbox" class="toggle"/>선생님
+                                                    </label>
+                                                    <script>
+                                                        @for(typeId <- memberType){
+                                                            $("#type@typeId").addClass("active");
+                                                            $("#type@typeId input").prop('checked', true);
+                                                        }
+                                                    </script>
+                                                    <label id="approval0" class="btn btn-default">
+                                                        <input name="approval" value="0" type="checkbox" class="toggle"/>미승인
+                                                    </label>
+                                                    <script>
+                                                      $("#approval@approval").addClass("active");
+                                                      $("#approval@approval input").prop('checked', true);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <select name="types" class="form-control">
+                                                        <option value="email">이메일</option>
+                                                        <option value="name">성명</option>
+                                                    </select>
+                                                </div>
+                                                <script>
+                                                    $("#types").val("@types");
+                                                </script>
+                                                <div class="col-md-5 col-md-offset-1">
+                                                    <input name="key" type="text" class="form-control" value="@key"/>
+                                                </div>
+                                                <div class="col-md-3 text-center">
+                                                    <button type="submit" class="btn green btn-search">검색</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                        <!-- .form-search-->
+                                </div>
+                                    <!-- .form-search-wrapper-->
+
+                                <div style="border-top : 1px solid #e1e1e1 ; padding-bottom : 15px ;" class="az-gap"></div>
+                                <div class="table-member-approval table-responsive">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>번호  </th>
+                                                <th>회원분류</th>
+                                                <th>성명</th>
+                                                <th>이메일</th>
+                                                <th>소속학교</th>
+                                                <th>핸드폰 번호</th>
+                                                <th>힉생증</th>
+                                                <th>회원가입 일시</th>
+                                                <th>관리</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @for((user, index)<- users.zipWithIndex) {
+                                            <tr>
+                                                <td>@{totalElement - index - (p-1) * perpage}</td>
+                                                <td>@user.userType</td>
+                                                <td>@user.name</td>
+                                                <td>@user.email</td>
+                                                <td>@user.school</td>
+                                                <td>@user.phone</td>
+                                                <td>
+                                                @if(user.image == "" || user.image == null){
+                                                    @user.image
+                                                }else{
+                                                    <button onclick="showImage('@user.image')" class="btn-open-popup btn green">학생증 보기</button>
+                                                }
+                                                </td>
+                                                <td>@user.createdAt</td>
+                                                <td class="text-center">
+                                                    @if(user.approval == 0){
+                                                        <button onclick="setId(@user.id)" data-toggle="modal" data-target="#popupConfirmUnapproved" class="btn-open-popup btn green">미승인</button>
+                                                    }
+                                                    @if(user.approval == 1){
+                                                        승인
+                                                    }
+                                                    @if(user.approval == 2){
+                                                        불승인
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                    <!--.table-member-approval-->
+                                @helper.pagination(p, perpage, totalElement, (p: Int) => controllers.admin.routes.AdminMemberController.approval(p, types, key, memberType, approval))
+                                    <!-- .az-pagination-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                    <!-- .block-tab-->
+            </div>
+        </div>
+            <!-- .page-content-->
+    </div>
+    <div id="popupConfirmUnapproved" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4><strong>해당 회원 정보를 승인하시겠습니까?</strong>
+                            <!-- Are you sure you want to approve the membership information?-->
+                    </h4>
+                </div>
+                <div class="modal-footer">
+                        <input type="hidden" id="modalValue"/>
+                        <button onclick="accept()" class="btn green btn-confirm">승인</button>
+                        <button onclick="deny()" class="btn green btn-confirm">불승인</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showImage(url) {
+           var baseUrl = "http://52.192.0.99:5000"
+           window.open(baseUrl+url, '_blank', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+        }
+        function setId(id){
+            $("#modalValue").val(id);
+        }
+        function accept(){
+            var id = $("#modalValue").val();
+            location.href = "/admin/member/approval?accept=" + id;
+        }
+        function deny(){
+            var id = $("#modalValue").val();
+            location.href = "/admin/member/approval?deny=" + id;
+        }
+    </script>
+    <!-- .popupConfirmUnapproved-->
+}

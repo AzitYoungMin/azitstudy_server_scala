@@ -1,0 +1,116 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Azit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Vendor CSS (GLOBAL MANDATORY STYLES)-->
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/font-awesome/css/font-awesome.min.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/simple-line-icons/simple-line-icons.min.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/uniform/css/uniform.default.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css")">
+
+    <!-- Vendor CSS (GLOBAL PAGE LEVEL STYLES)-->
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/select2/select2.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css")">
+
+    <!-- Vendor CSS (THEME STYLES)-->
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/global/css/components.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/global/css/plugins.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/admin/layout/css/layout.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("theme/libs/metronic-admin/admin/layout/css/themes/darkblue.css")">
+
+    <!-- Theme CSS-->
+    <link rel="stylesheet" href="@routes.Assets.versioned("theme/assets/css/admin.css")">
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/jquery.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/jquery-migrate.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/jquery-ui/jquery-ui.min.js")"></script>
+    @*<script src="@routes.Assets.versioned("javascripts/script.js")" type="text/javascript"></script>*@
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://-->
+    <!--if lt IE 9
+    script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+    script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+    
+    -->
+  </head>
+
+  <body class="page-header-fixed page-quick-sidebar-over-content">
+    <div class="page-header navbar navbar-fixed-top">
+      <div class="page-header-inner">
+        <!-- BEGIN LOGO-->
+        <div class="page-logo"><a href="home.html"><img src="@routes.Assets.versioned("theme/assets/images/logo/logo_2.png")" alt="logo" class="logo-default"/></a></div>
+        <!-- .page-logo-->
+<a href="javascript:;" data-toggle="collapse" data-target=".navbar-collapse" class="menu-toggler responsive-toggler"></a>
+        <!-- .responsive-toggler-->
+
+        <div class="top-menu">
+          <ul class="nav navbar-nav pull-right">
+            <li class="dropdown dropdown-user"><a href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" class="dropdown-toggle"><span class="username username-hide-on-mobile">관리자</span><i class="fa fa-angle-down"></i></a>
+              <ul class="dropdown-menu dropdown-menu-default">
+                <li><a href="/logout"><i class="icon-key"></i> 로그아웃</a></li>
+              </ul>
+            </li>
+            <!-- .dropdown-user-->
+          </ul>
+        </div>
+        <!-- .top-menu-->
+      </div>
+    </div>
+    <!-- .page-header-->
+    <div class="clearfix"></div>
+
+    <div class="page-container">
+      <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+          <ul data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" class="page-sidebar-menu">
+            @helper.menu()
+          </ul>
+        </div>
+      </div>
+      <!-- .page-sidebar-wrapper-->
+      		@content
+      <!-- .member-->
+    </div>
+    <!--.page-container-->
+
+    <div class="page-footer">
+      <div class="page-footer-inner"><a href="http://azit.co.kr/" title="http://azit.co.kr/" target="_blank">Azit.co.kr</a></div>
+      <div class="scroll-to-top"><i class="icon-arrow-up"></i></div>
+    </div>
+    <!-- .page-footer-->
+
+
+
+    <!-- Vendor jQuery (CORE PLUGINS - METRONIC)-->
+
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/bootstrap/js/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/jquery.blockui.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/jquery.cokie.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/uniform/jquery.uniform.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js")"></script>
+
+    <!-- Vendor jQuery (PAGE LEVEL PLUGINS - METRONIC)-->
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/jquery-validation/js/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/jquery-validation/js/additional-methods.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/select2/select2.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/ckeditor/ckeditor.js")"></script>
+
+    <!-- Vendor jQuery (PAGE LEVEL STYLES - METRONIC)-->
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/scripts/metronic.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/admin/layout/scripts/layout.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/admin/layout/scripts/quick-sidebar.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/admin/layout/scripts/demo.js")"></script>
+
+    <!-- Theme Script-->
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/assets/js/admin.js")"></script>
+  </body>
+</html>

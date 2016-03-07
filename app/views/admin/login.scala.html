@@ -1,0 +1,107 @@
+@(form: Form[(String, String)])(implicit flash: Flash)
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Login - Azit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="@routes.Assets.versioned("theme/assets/images/icon/favicon.ico")" type="image/x-icon">
+
+    <!-- Vendor CSS-->
+    <link href="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS-->
+    <link rel="stylesheet" href="@routes.Assets.versioned("theme/assets/css/admin.css")">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://-->
+    <!--if lt IE 9
+    script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+    script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+    
+    -->
+  </head>
+
+  <body class="login-page">
+    <div class="login">
+      <div class="logo">
+        <div class="container"><a href="home.html" title="" class="logo-image"><img src="@routes.Assets.versioned("theme/assets/images/logo/logo.png")" alt="logo"></a></div>
+      </div>
+      <!-- .logo-->
+
+      <div class="form-login-wrapper">
+        <div class="container">
+          <form action="/login" method="POST" class="form-login">
+            <div class="form-header clearfix">로그인</div>
+                    @form.globalError.map { error =>
+                        <div class="alert alert-danger" role="alert">
+                            @error.message
+                        </div>
+                    }
+                    @flash.get("success").map { message =>
+                        <div class="alert alert-success" role="alert">
+                            @message
+                        </div>
+                    }
+            <div class="form-group clearfix">
+              <div class="inputbox-wrapper">
+                <input id="username" type="email" name="email" placeholder="아이디" data-az-placeholder="아이디" class="inputbox required">
+              </div>
+            </div>
+
+            <div class="form-group clearfix">
+              <div class="inputbox-wrapper">
+                <input id="password" type="password" name="password" placeholder="비밀번호" data-az-placeholder="비밀번호" class="inputbox required"><i class="inputbox-icon fa fa-eye"></i>
+              </div>
+            </div>
+
+            <div class="form-group clearfix">
+              <label class="remember-checkbox">
+                <input type="checkbox" name="remember"><span class="text">로그인 상태 유지</span>
+              </label>
+            </div>
+
+            <div class="form-group clearfix">
+              <button type="submit" class="btn-login">로그인</button>
+            </div>
+
+            <div class="form-group clearfix"><span class="error-message">아이디와 비밀번호를 다시 확인해주십시오. </span></div>
+      </form>
+        </div>
+        <!-- form-login-->
+      </div>
+      <!-- .form-login-wrapper-->
+    </div>
+    <!-- .login-->
+
+    <!-- Vendor jQuery-->
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/jquery.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/libs/metronic-admin/global/plugins/bootstrap/js/bootstrap.min.js")"></script>
+
+    <!-- Theme Script-->
+    <script type="text/javascript" src="@routes.Assets.versioned("theme/assets/js/admin.js")"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

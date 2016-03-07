@@ -1,0 +1,197 @@
+@import caseClasses.ExamCriteriaDetail
+@(id: Int, subject: Int, examCriteriaDetail: List[ExamCriteriaDetail])
+
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="monthly-exam-detail page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li><span>모의고사관리 - 2015년 10월 교육청</span></li>
+                </ul>
+            </div><!-- .page-bar-->
+        <div class="monthly-exam-detail-main az-pb-50">
+            <div class="block-tab">
+                <div class="tabbable-custom">
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href='/admin/exam/detail?id=@id&subject=10000' id="10000">국어</a>
+                        </li>
+                        <li>
+                            <a href='/admin/exam/detail?id=@id&subject=30000' id="30000">수학</a>
+                        </li>
+                        <li>
+                            <a href='/admin/exam/detail?id=@id&subject=50000' id="50000">영어</a>
+                        </li>
+                        <li>
+                            <a href='/admin/exam/detail?id=@id&subject=60000' id="60000">사탐</a>
+                        </li>
+                        <li>
+                            <a href='/admin/exam/detail?id=@id&subject=70000' id="70000">과탐</a>
+                        </li>
+                        <li>
+                            <a href='/admin/exam/detail?id=@id&subject=80000' id="80000">제2외국어</a>
+                        </li>
+                    </ul>
+                    <script>
+                        $("#@subject").parents().addClass("active");
+                    </script>
+            <div class="tab-content">
+                <div id="tab-m-e-detail-1" class="tab-m-e-detail-1 tab-pane active">
+                    @for(exam <- examCriteriaDetail){
+                        @helper.form(action = controllers.admin.routes.AdminExamController.saveExamDetail()) {
+                            <div class="block-1">
+                                <h4><strong>@exam.title</strong></h4>
+                                <input type="hidden" name="score.id" value="@exam.score.id"/>
+                                <input type="hidden" name="standard.id" value="@exam.standard.id"/>
+                                <input type="hidden" name="percentile.id" value="@exam.percentile.id"/>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover text-center">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">등급</th>
+                                                <th class="text-center">원점수</th>
+                                                <th class="text-center">표준점수</th>
+                                                <th class="text-center">백분위</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier1Min" name="score.tier1Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier1Max" name="score.tier1Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier1Min" name="standard.tier1Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier1Max" name="standard.tier1Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier1Min" name="percentile.tier1Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier1Max" name="percentile.tier1Max"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier2Min" name="score.tier2Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier2Max" name="score.tier2Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier2Min" name="standard.tier2Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier2Max" name="standard.tier2Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier2Min" name="percentile.tier2Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier2Max" name="percentile.tier2Max"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier3Min" name="score.tier3Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier3Max" name="score.tier3Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier3Min" name="standard.tier3Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier3Max" name="standard.tier3Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier3Min" name="percentile.tier3Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier3Max" name="percentile.tier3Max"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier4Min" name="score.tier4Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier4Max" name="score.tier4Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier4Min" name="standard.tier4Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier4Max" name="standard.tier4Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier4Min" name="percentile.tier4Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier4Max" name="percentile.tier4Max"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier5Min" name="score.tier5Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier5Max" name="score.tier5Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier5Min" name="standard.tier5Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier5Max" name="standard.tier5Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier5Min" name="percentile.tier5Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier5Max" name="percentile.tier5Max"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier6Min" name="score.tier6Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier6Max" name="score.tier6Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier6Min" name="standard.tier6Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier6Max" name="standard.tier6Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier6Min" name="percentile.tier6Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier6Max" name="percentile.tier6Max"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier7Min" name="score.tier7Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier7Max" name="score.tier7Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier7Min" name="standard.tier7Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier7Max" name="standard.tier7Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier7Min" name="percentile.tier7Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier7Max" name="percentile.tier7Max"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier8Min" name="score.tier8Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier8Max" name="score.tier8Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier8Min" name="standard.tier8Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier8Max" name="standard.tier8Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier8Min" name="percentile.tier8Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier8Max" name="percentile.tier8Max"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier9Min" name="score.tier9Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.score.tier9Max" name="score.tier9Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier9Min" name="standard.tier9Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.standard.tier9Max" name="standard.tier9Max"/></td>
+                                                <td><input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier9Min" name="percentile.tier9Min"/>
+                                                    ~<input type="text" class="form-control input-inline input-xsmall" value="@exam.percentile.tier9Max" name="percentile.tier9Max"/></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="button-wrapper text-center">
+                                    <button onclick="saveExamCriteria(this, event)" class="btn green">입력</button>
+                                </div>
+                            </div> <!--.block-1-->
+                        }
+                    }
+                </div>
+            </div>
+                </div>
+            </div><!-- .block-tab-->
+        </div><!-- .monthly-exam-detail-main-->
+        </div><!-- .page-content-->
+    </div><!-- .monthly-exam-detail-->
+
+    <div id="popupConfirmSaveInfo" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4><strong>해당내용을 저장시겠습니까?</strong><!-- Do you want to edit this content?--></h4>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn green btn-confirm">확인</a>
+                    <button type="button" data-dismiss="modal" class="btn btn-default">취소</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- .popupConfirmSaveInfo-->
+    <script>
+        function saveExamCriteria(element, e){
+            var form = $(element).parents().parents().parents();
+
+            $.ajax({
+                    type: 'POST',
+                    url: '@controllers.admin.routes.AdminExamController.saveExamDetail()',
+                    data:  $(form).serialize(),
+                    success: function(result) {
+                        if(result == "success"){
+                            alert("모의고사 점수 입력이 성공하였습니다.");
+                        }else{
+                            alert("모의고사 점수 입력이 실패하였습니다.");
+                        }
+                    },
+                    error: function(result){
+                        alert("모의고사 점수 입력이 실패하였습니다.")
+                    }
+
+                });
+            e.preventDefault();
+        }
+
+    </script>
+}

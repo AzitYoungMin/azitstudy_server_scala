@@ -1,0 +1,246 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                                                     controllers.authentication.Auth.login
+POST        /login                                                controllers.authentication.Auth.authenticate
+GET         /logout                                               controllers.authentication.Auth.logout
+
+
+# Admin member
+GET         /admin/member                                         @controllers.admin.AdminMemberController.list(p: Int ?= 1, searchType: String ?= "email", keyword: String ?= "", member_type: List[Int] ?= List(), withdrawal: Int ?= -1)
+GET         /admin/member/approval                                @controllers.admin.AdminMemberController.approval(p: Int ?= 1, types: String ?= "email", key: String ?= "", memberType: List[Int] ?= List(), approval: Int ?= 1, accept: Int ?= 0, deny: Int ?= 0)
+GET         /admin/member/withdrawal                              @controllers.admin.AdminMemberController.withdrawal(p: Int ?= 1, types: String ?= "email", key: String ?= "", id: Int ?= 0)
+GET         /admin/member/teacher_student                         @controllers.admin.AdminMemberController.teacherStudent(p: Int ?= 1, types: String ?= "teacherEmail", key: String ?= "", studentId: Int ?= 0, teacherId: Int ?= 0, approvalType: Int ?= 0)
+#Admin push
+GET         /admin/push/student/auto                              @controllers.admin.AdminPushController.studentAuto
+GET         /admin/push/student/manual                            @controllers.admin.AdminPushController.studentManual(page: Int ?= 1, totalGrade: List[Int] ?= List(), year: Int ?= 0, school: String ?= "", fromYear: Int ?= 0, fromMonth: Int ?= 0, toYear: Int ?= 0, toMonth: Int ?= 0)
+GET         /admin/push/mentor/auto                               @controllers.admin.AdminPushController.mentorAuto
+GET         /admin/push/mentor/manual                             @controllers.admin.AdminPushController.mentorManual(page: Int ?= 1, university: String ?= "", major: String ?= "", year: Int ?= 0, gender: String ?= "", subjects: List[Int] ?= List())
+POST        /admin/push/send                                      @controllers.admin.AdminPushController.manualPush()
+POST        /admin/push/message/update                            @controllers.admin.AdminPushController.updateMessage()
+GET         /api/push/start                                       @controllers.admin.AdminPushController.pushStart()
+GET         /api/push/stop                                        @controllers.admin.AdminPushController.pushStop()
+
+#Admin boards
+GET         /admin/boards/mentoring/list                          @controllers.admin.AdminBoardsController.mentoringList(p: Int ?= 1, types: String ?= "nickname", key: String ?= "", id: Int ?= 0)
+GET         /admin/boards/mentoring/detail                        @controllers.admin.AdminBoardsController.mentoringDetail(id: Int ?= 0, deletePosting: Int ?= 0, deleteReply: Int ?= 0, choiceCancel: Int ?= 0)
+GET         /admin/boards/mentoring/report                        @controllers.admin.AdminBoardsController.mentoringReport(postingPage: Int ?= 1, answerPage:Int ?= 1, replyPage: Int ?= 1, actionType: Int ?= 0, posting: Int ?= 0, userId: Int ?= 0)
+GET         /admin/boards/question/list                           @controllers.admin.AdminBoardsController.questionList(p: Int ?= 1, types: String ?= "nickname", key: String ?= "", id: Int ?= 0, subjects: List[Int] ?= List())
+GET         /admin/boards/question/detail                         @controllers.admin.AdminBoardsController.questionDetail(id: Int ?= 0, deletePosting: Int ?= 0, deleteReply: Int ?= 0, choiceCancel: Int ?= 0)
+GET         /admin/boards/question/report                         @controllers.admin.AdminBoardsController.questionReport(postingPage: Int ?= 1, answerPage:Int ?= 1, replyPage: Int ?= 1, actionType: Int ?= 0, posting: Int ?= 0, userId: Int ?= 0)
+
+#Admin push
+GET         /admin/point/manage                                   @controllers.admin.AdminPointController.manage(page: Int ?= 1, year: Int ?= 0, month: Int ?= 0, searchType: String ?= "email", keyword: String ?= "")
+GET         /admin/point/refund                                   @controllers.admin.AdminPointController.refund(page: Int ?= 1, year: Int ?= 0, month: Int ?= 0, searchType: String ?= "email", keyword: String ?= "")
+GET         /admin/point/complete                                 @controllers.admin.AdminPointController.complete(page: Int ?= 1, year: Int ?= 0, month: Int ?= 0, searchType: String ?= "email", keyword: String ?= "")
+GET         /admin/point/choice                                   @controllers.admin.AdminPointController.choice(page: Int ?= 1, keyword: String ?= "", change: Int ?= 0, cancel: Int ?= 0)
+POST        /admin/point/refund/approval                          @controllers.admin.AdminPointController.refundApproval
+
+#Admin payment
+GET         /admin/payment/pay                                    @controllers.admin.AdminPaymentController.pay
+GET         /admin/payment/refund                                 @controllers.admin.AdminPaymentController.refund
+GET         /admin/payment/complete                               @controllers.admin.AdminPaymentController.complete
+
+#Admin exam
+GET         /admin/exam/list                                      @controllers.admin.AdminExamController.list(activePage: Int ?= 1, examPage: Int ?= 1, inActiveId: Int ?= 0, activeId: Int ?= 0, deleteId: Int ?= 0)
+GET         /admin/exam/detail                                    @controllers.admin.AdminExamController.detail(id: Int ?= 0, subject: Int ?= 10000)
+POST        /admin/exam/add                                       @controllers.admin.AdminExamController.addExam
+POST        /admin/exam/detail/save                               @controllers.admin.AdminExamController.saveExamDetail
+
+#Admin grade
+GET         /admin/grade/list                                     @controllers.admin.AdminGradeController.list(page: Int ?= 1, year: Int ?= 0, month: Int ?= 0, title: String ?= "", searchType: String ?= "name", keyword: String ?= "")
+POST        /admin/grade/get/month                                @controllers.admin.AdminGradeController.getMonthList
+POST        /admin/grade/get/title                                @controllers.admin.AdminGradeController.getTitleList
+
+#Admin report
+GET         /admin/report/list                                    @controllers.admin.AdminReportController.list
+GET         /admin/report/detail                                  @controllers.admin.AdminReportController.detail
+
+#Admin ask
+GET         /admin/ask/list                                       @controllers.admin.AdminAskController.list
+GET         /admin/ask/detail                                     @controllers.admin.AdminAskController.detail
+
+#Admin notice
+GET         /admin/notice/list                                    @controllers.admin.AdminNoticeController.list(page: Int ?= 1)
+GET         /admin/notice/create                                  @controllers.admin.AdminNoticeController.create
+GET         /admin/notice/edit                                    @controllers.admin.AdminNoticeController.edit(id: Int)
+POST        /admin/notice/create                                  @controllers.admin.AdminNoticeController.createNotice
+POST        /admin/notice/edit                                    @controllers.admin.AdminNoticeController.updateNotice
+
+
+
+#Admin Notice
+#GET         /admin/notice                            @controllers.admin.AdminNotice.index(p: Int ?= 1)
+#GET         /admin/notice/edit/:id                   @controllers.admin.AdminNotice.editGet(id: Int)
+#POST        /admin/notice/edit/:id                   @controllers.admin.AdminNotice.editPost(id: Int)
+#GET         /admin/notice/write                      @controllers.admin.AdminNotice.writeGet
+#POST        /admin/notice/write                      @controllers.admin.AdminNotice.writePost
+
+#Admin Ask
+#GET         /admin/ask                            	@controllers.admin.AdminAsk.index(searchType: String ?="", keyword: String ?="",p: Int ?= 1)
+#GET         /admin/ask/:id                   		@controllers.admin.AdminAsk.read(id: Int)
+#GET         /admin/getschool                   	    @controllers.admin.AdminAsk.getschool(userId: Int,typeId: Int)
+
+#Admin Give Infomation
+#GET         /admin/give_infomation                   @controllers.admin.AdminGiveInformation.index(searchType: String ?="", keyword: String ?="",p: Int ?= 1)
+#GET         /admin/give_infomation/:id               @controllers.admin.AdminGiveInformation.read(id: Int)
+
+
+# Admin page
+#GET           /admin                                                @controllers.admin.AdminMember.list(p: Int ?= 1, types: String ?= "email", key: String ?= "", member_type: List[Int] ?= List(), withdrawal: Int ?= -1)
+#GET           /admin/unreceived/mentors                             @controllers.admin.AdminMainController.unreceivedMentors
+#GET           /admin/approval/mentor                                @controllers.admin.AdminMainController.approvalMentor(id: Option[Int])
+#GET           /admin/unreceived/teachers                            @controllers.admin.AdminMainController.unreceivedTeachers
+#GET           /admin/approval/teacher                               @controllers.admin.AdminMainController.approvalTeacher(teacherId: Option[Int], studentId: Option[Int])
+#GET           /admin/list/students                                  @controllers.admin.AdminMainController.studentList
+#GET           /admin/list/mentors                                   @controllers.admin.AdminMainController.mentorList
+#GET           /admin/list/teachers                                  @controllers.admin.AdminMainController.teacherList
+#GET           /admin/exam/list                                      @controllers.admin.AdminMainController.examList
+#GET           /admin/exam/register                                  @controllers.admin.AdminMainController.registerExamPage
+#POST          /admin/exam/register                                  @controllers.admin.AdminActionController.registerExam
+
+# API Common
+POST        /api/login                                            @controllers.api.CommonApiController.login(key: Option[String])
+POST        /api/posting/list                                     @controllers.api.CommonApiController.postingList(key: Option[String])
+POST        /api/posting/delete                                   @controllers.api.CommonApiController.deletePosting(key: Option[String])
+POST        /api/posting/contents                                 @controllers.api.CommonApiController.postingContents(key: Option[String])
+POST        /api/posting/reply/like                               @controllers.api.CommonApiController.replyLike(key: Option[String])
+POST        /api/posting/reply/report                             @controllers.api.CommonApiController.replyReport(key: Option[String])
+POST        /api/posting/reply/delete                             @controllers.api.CommonApiController.replyDelete(key: Option[String])
+POST        /api/posting/reply/save                               @controllers.api.CommonApiController.replySave(key: Option[String])
+POST        /api/message/send                                     @controllers.api.CommonApiController.messageSend(key: Option[String])
+POST        /api/message/list                                     @controllers.api.CommonApiController.messageList(key: Option[String])
+POST        /api/message/get                                      @controllers.api.CommonApiController.getMessage(key: Option[String])
+POST        /api/message/delete                                   @controllers.api.CommonApiController.messageDelete(key: Option[String])
+POST        /api/email/check                                      @controllers.api.CommonApiController.emailCheck(key: Option[String])
+POST        /api/nickname/check                                   @controllers.api.CommonApiController.nicknameCheck(key: Option[String])
+POST        /api/password/change                                  @controllers.api.CommonApiController.passwordChange(key: Option[String])
+POST        /api/phone/change                                     @controllers.api.CommonApiController.phoneChange(key: Option[String])
+POST        /api/analysis/grade                                   @controllers.api.CommonApiController.analysisGrade(key: Option[String])
+POST        /api/analysis/study/all                               @controllers.api.CommonApiController.analysisStudyAll(key: Option[String])
+POST        /api/analysis/study/daily                             @controllers.api.CommonApiController.analysisStudyDaily(key: Option[String])
+POST        /api/analysis/study/subject                           @controllers.api.CommonApiController.analysisStudySubject(key: Option[String])
+POST        /api/posting/report                                   @controllers.api.CommonApiController.postingReport(key: Option[String])
+POST        /api/push/setting                                     @controllers.api.CommonApiController.updatePushSetting(key: Option[String])
+POST        /api/withdrawal                                       @controllers.api.CommonApiController.withdrawal(key: Option[String])
+POST        /api/token/set                                        @controllers.api.CommonApiController.setToken(key: Option[String])
+POST        /api/notice/list                                      @controllers.api.CommonApiController.noticeList(key: Option[String])
+POST        /api/password/find                                    @controllers.api.CommonApiController.findPassword(key: Option[String])
+
+# API Student
+POST        /api/student/signup                                   @controllers.api.StudentApiController.singUp(key: Option[String])
+POST        /api/student/profile                                  @controllers.api.StudentApiController.profile(key: Option[String])
+POST        /api/student/profile/edit                             @controllers.api.StudentApiController.profileEdit(key: Option[String])
+POST        /api/posting/mentoring/save                           @controllers.api.StudentApiController.mentoringSave(key: Option[String])
+POST        /api/posting/mentoring/get                            @controllers.api.StudentApiController.mentoringGet(key: Option[String])
+POST        /api/posting/mentoring/update                         @controllers.api.StudentApiController.mentoringUpdate(key: Option[String])
+POST        /api/posting/clinic/save                              @controllers.api.StudentApiController.clinicSave(key: Option[String])
+POST        /api/posting/clinic/get                               @controllers.api.StudentApiController.clinicGet(key: Option[String])
+POST        /api/posting/clinic/update                            @controllers.api.StudentApiController.clinicUpdate(key: Option[String])
+#POST        /api/posting/clinic/save/images                       @controllers.api.StudentApiController.clinicImageUpload(key: Option[String], id: Option[Int], secret: Option[String])
+POST        /api/student/posting/list                             @controllers.api.StudentApiController.postingList(key: Option[String])
+POST        /api/posting/clinic/choice                            @controllers.api.StudentApiController.answerChoice(key: Option[String])
+POST        /api/posting/clinic/evaluation                        @controllers.api.StudentApiController.answerEvaluation(key: Option[String])
+POST        /api/student/d-day/save                               @controllers.api.StudentApiController.dDaySave(key: Option[String])
+POST        /api/student/d-day/edit                               @controllers.api.StudentApiController.dDayEdit(key: Option[String])
+POST        /api/student/d-day/delete                             @controllers.api.StudentApiController.dDayDelete(key: Option[String])
+POST        /api/student/d-day/choice                             @controllers.api.StudentApiController.dDayChoice(key: Option[String])
+POST        /api/student/d-day/list                               @controllers.api.StudentApiController.dDayList(key: Option[String])
+POST        /api/student/d-day                                    @controllers.api.StudentApiController.dDay(key: Option[String])
+POST        /api/student/activity/add                             @controllers.api.StudentApiController.activitySave(key: Option[String])
+POST        /api/student/activity/list                            @controllers.api.StudentApiController.activityList(key: Option[String])
+POST        /api/student/activity/delete                          @controllers.api.StudentApiController.activityDelete(key: Option[String])
+POST        /api/student/activity/time/save                       @controllers.api.StudentApiController.activityTimeSave(key: Option[String])
+POST        /api/student/activity/time/update                     @controllers.api.StudentApiController.activityTimeUpdate(key: Option[String])
+POST        /api/student/school-record/save                       @controllers.api.StudentApiController.recordSchool(key: Option[String])
+POST        /api/student/university/save                          @controllers.api.StudentApiController.universitySave(key: Option[String])
+POST        /api/student/exam-record/list                         @controllers.api.StudentApiController.examRecordList(key: Option[String])
+POST        /api/student/exam-record/save                         @controllers.api.StudentApiController.recordExam(key: Option[String])
+POST        /api/student/university/recommend                     @controllers.api.StudentApiController.recommendUniversityList(key: Option[String])
+POST        /api/student/activity/selected-textbook/add           @controllers.api.StudentApiController.selectedTextbookAdd(key: Option[String])
+POST        /api/student/activity/selected-textbook/delete        @controllers.api.StudentApiController.selectedTextbookDelete(key: Option[String])
+POST        /api/student/activity/selected-textbook/list          @controllers.api.StudentApiController.selectedTextbookList(key: Option[String])
+POST        /api/student/activity/textbook/list                   @controllers.api.StudentApiController.textbookList(key: Option[String])
+POST        /api/student/study/goal/save                          @controllers.api.StudentApiController.studyGoalSave(key: Option[String])
+POST        /api/student/activity/custom-type/add                 @controllers.api.StudentApiController.customActivityTypeAdd(key: Option[String])
+POST        /api/student/activity/custom-type/list                @controllers.api.StudentApiController.customActivityTypeList(key: Option[String])
+POST        /api/student/activity/custom-type/delete              @controllers.api.StudentApiController.customActivityTypeDelete(key: Option[String])
+POST        /api/student/study/goal                               @controllers.api.StudentApiController.getGoalTime(key: Option[String])
+POST        /api/student/posting/textbook/list                    @controllers.api.StudentApiController.textbookListForPosting(key: Option[String])
+POST        /api/student/custom/textbook/add                      @controllers.api.StudentApiController.customTextbookAdd(key: Option[String])
+POST        /api/posting/answer/choice/change                     @controllers.api.StudentApiController.answerChoiceChange(key: Option[String])
+
+# API Teacher
+POST        /api/teacher/signup                                   @controllers.api.TeacherApiController.singUp(key: Option[String])
+POST        /api/teacher/student/search                           @controllers.api.TeacherApiController.searchStudents(key: Option[String])
+POST        /api/teacher/student/add                              @controllers.api.TeacherApiController.addStudent(key: Option[String])
+POST        /api/teacher/student/list                             @controllers.api.TeacherApiController.getStudents(key: Option[String])
+POST        /api/teacher/profile                                  @controllers.api.TeacherApiController.profile(key: Option[String])
+POST        /api/teacher/profile/last-school/update               @controllers.api.TeacherApiController.updateLastSchool(key: Option[String])
+POST        /api/teacher/profile/edu-inst/update                  @controllers.api.TeacherApiController.updateEduInst(key: Option[String])
+POST        /api/teacher/authentication                           @controllers.api.TeacherApiController.authCheck(key: Option[String])
+
+# API Mentor
+POST        /api/mentor/signup                                    @controllers.api.MentorApiController.singUp(key: Option[String])
+POST        /api/mentor/profile                                   @controllers.api.MentorApiController.profile(key: Option[String])
+POST        /api/mentor/profile/edit                              @controllers.api.MentorApiController.profileEdit(key: Option[String])
+POST        /api/mentor/info                                      @controllers.api.MentorApiController.info(key: Option[String])
+POST        /api/mentor/authentication                            @controllers.api.MentorApiController.authCheck(key: Option[String])
+POST        /api/mentor/student/list                              @controllers.api.MentorApiController.getStudents(key: Option[String])
+POST        /api/mentor/posting/answer                            @controllers.api.MentorApiController.answerSave(key: Option[String])
+POST        /api/mentor/posting/answer/image                      @controllers.api.MentorApiController.answerImageUpload(key: Option[String], id: Option[Int], secret: Option[String])
+POST        /api/mentor/posting/list                              @controllers.api.MentorApiController.postingList(key: Option[String])
+POST        /api/mentor/refund                                    @controllers.api.MentorApiController.registerRefund(key: Option[String])
+POST        /api/mentor/refund/history                            @controllers.api.MentorApiController.refundHistory(key: Option[String])
+POST        /api/mentor/save/history                              @controllers.api.MentorApiController.saveHistory(key: Option[String])
+
+#notification push IOS and android
+
+
+## Home page
+#GET           /notification                                         controllers.notification.Apps.index
+#
+## API
+#PUT           /notification/api/device_tokens/:value                controllers.notification.Api.createDeviceToken(value: String)
+#DELETE        /notification/api/device_tokens/:value                controllers.notification.Api.deleteDeviceToken(value: String)
+#PUT           /notification/api/registrations/:value                controllers.notification.Api.createRegistration(value: String)
+#DELETE        /notification/api/registrations/:value                controllers.notification.Api.deleteRegistration(value: String)
+#POST          /notification/api/push                                controllers.notification.Api.push
+#POST          /notification/api/push/broadcast                      controllers.notification.Api.pushBroadcast
+#
+## Users
+#GET           /notification/users                                   controllers.notification.Users.index
+#GET           /notification/users/login                             controllers.notification.Users.login
+#POST          /notification/users/login                             controllers.notification.Users.authenticate
+#GET           /notification/users/logout                            controllers.notification.Users.logout
+#GET           /notification/users/add                               controllers.notification.Users.add
+#POST          /notification/users/create                            controllers.notification.Users.create
+#
+## Applications
+#GET           /notification/apps/add                                controllers.notification.Apps.add
+#POST          /notification/apps/create                             controllers.notification.Apps.create
+#GET           /notification/apps/:key                               controllers.notification.Apps.show(key: String)
+#GET           /notification/apps/:key/edit                          controllers.notification.Apps.edit(key: String)
+#POST          /notification/apps/:key/update                        controllers.notification.Apps.update(key: String)
+#POST          /notification/apps/:key/delete                        controllers.notification.Apps.delete(key: String)
+#GET           /notification/apps/:key/icon.png                      controllers.notification.Apps.icon(key: String)
+#
+## Device tokens
+#GET           /notification/apps/:key/device_tokens                 controllers.notification.DeviceTokens.index(key: String, offset: Int ?= 0, count: Int ?= 50)
+#
+## Registrations
+#GET           /notification/apps/:key/registrations                 controllers.notification.Registrations.index(key: String, offset: Int ?= 0, count: Int ?= 50)
+#
+## Events
+#GET           /notification/apps/:key/events                        controllers.notification.Events.index(key: String, offset: Int ?= 0, count: Int ?= 25)
+#
+## Push
+#GET           /notification/push/broadcast/:key                     controllers.notification.Push.broadcast(key: String)
+#POST          /notification/push/broadcast/:key                     controllers.notification.Push.sendBroadcast(key: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                                         controllers.Assets.versioned(path="/public", file: Asset)
+GET         /images/*file                                         controllers.ExternalAssets.at(path="/C:/upload", file)
+    

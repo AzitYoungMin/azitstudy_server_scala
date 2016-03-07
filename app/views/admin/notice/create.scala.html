@@ -1,0 +1,62 @@
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="notice-create page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <span>공지사항</span>
+                    </li>
+                </ul>
+            </div><!-- .page-bar-->
+            <div class="notice-create-main az-pb-50">
+                <div class="block-form">
+                    <div class="az-container-style-1">
+                        <div class="portlet az-bg-white">
+                            <div class="portlet-body form">
+                            @helper.form(action = controllers.admin.routes.AdminNoticeController.createNotice(), 'class -> "form-notice form-horizontal") {
+                                <input type="hidden" name="id" value="0">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1">제목</label>
+                                        <div class="col-md-11">
+                                            <input type="text" name="title" id="title" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1">내용</label>
+                                        <div class="col-md-11">
+                                            <input type="hidden" name="article" id="article"/>
+                                            <textarea id="ckEditor" rows="6" data-error-container="#notice-editor-error" class="ckeditor form-control"></textarea>
+                                            <div id="notice-editor-error"></div>
+                                        </div>
+                                    </div>
+                                    <div style="padding-bottom : 15px ;" class="az-gap"></div>
+                                    <div class="form-group button-action text-right">
+                                        <div class="col-md-12">
+                                            <a href="/admin/notice/list" class="btn red btn-cancel">취소</a>
+                                            <button onclick="preProcess(event)" type="submit" class="btn green btn-done">완료</button>
+                                                <!-- button.btn.green.btn-edit(type="submit") 수정--><!-- a.btn-open-popup.btn.red.btn-detele(href="#", data-toggle='modal', data-target="#popupConfirmDelete") 삭제--><!-- a.btn.btn-default.btn-back(href="notice.html") 목록-->
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .block-form-->
+            </div><!-- .notice-create-main-->
+        </div><!-- .page-content-->
+    </div> <!-- .notice-create-->
+    <script>
+        function preProcess(e){
+            var data = CKEDITOR.instances.ckEditor.getData();
+            $("#article").val(data);
+            var title = $("#title").val();
+            var article = $("#article").val();
+            if(title == "" || article == "" || article.search(/^(&nbsp;)+$/i) == 0){
+                e.preventDefault();
+                alert("제목 및 내용을 입력해 주세요.");
+            }
+        }
+    </script>
+}

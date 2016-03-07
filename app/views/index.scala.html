@@ -1,0 +1,12 @@
+@import tables.Tables.UsersRow
+@(users: Seq[UsersRow])
+
+@main("Welcome to Play") {
+
+    <table>
+        <tr><th>ID</th><th>EMAIL</th></tr>
+        @for(c <- users){
+            <tr><td>@c.id</td><td>@c.email</td></tr>
+        }
+    </table>
+}

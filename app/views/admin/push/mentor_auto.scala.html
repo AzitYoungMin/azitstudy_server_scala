@@ -1,0 +1,138 @@
+@(clinicQuestion: String, clinicEvaluation: String, mentoringReply: String, mentoringEvaluation: String, report: String, choiceCancel: String, refund: String)
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="push page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li><span>푸쉬</span></li>
+                </ul>
+            </div><!-- .page-bar-->
+            <div class="push-main az-pb-50">
+                <div class="block-tab">
+                    <div class="tabbable-custom">
+                        <ul class="nav nav-tabs">
+                            <li><a href="/admin/push/student/auto">학생(자동)</a></li>
+                            <li><a href="/admin/push/student/manual">학생(수동)</a></li>
+                            <li class="active"><a href="/admin/push/mentor/auto">멘토(자동)</a></li>
+                            <li><a href="/admin/push/mentor/manual">멘토(수동)</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-push-mentor-auto" class="tab-push-mentor-auto tab-pane active">
+                                <div class="block-wrapper az-pb-50">
+                                    <div class="block-1">
+                                    <div class="az-container-style-1">
+                                        <h3 class="well text-center no-margin"><strong>풀어주세요</strong></h3>
+                                        <div class="row">
+                                            <div class="col-md-6 text-center">
+                                                <h4 class="text-left"><strong>담당과목 질문이 올라옴</strong></h4>
+                                                <textarea name="clinicQuestion" id="clinicQuestion" rows="10" class="form-control" data="8">@clinicQuestion</textarea>
+                                                <div style="padding : 15 px 0 0 0 ;" class="az-gap">
+
+                                                </div>
+                                                <botten onclick="saveMessage(this)" class="btn-open-popup btn green">내용저장</botten>
+                                            </div>
+                                <div class="col-md-6 text-center">
+                                    <h4 class="text-left"><strong>멘토의 답변의 평가가 달림</strong></h4>
+                                    <textarea name="clinicEvaluation" id="clinicEvaluation" rows="10" class="form-control" data="9">@clinicEvaluation</textarea>
+                                    <div style="padding : 15 px 0 0 0 ;" class="az-gap">
+
+                                    </div>
+                                    <botten onclick="saveMessage(this)" class="btn-open-popup btn green">내용저장</botten>
+                                </div>
+                                        </div>
+                                    </div>
+                                    </div><!-- .block-1-->
+                                <div style="padding : 30 px 0 0 0 ;" class="az-gap">
+
+                                </div>
+                                <div class="block-2">
+                                    <div class="az-container-style-1">
+                                        <h3 class="well text-center no-margin"><strong>학습상담</strong></h3>
+                                        <div class="row">
+                                            <div class="col-md-6 text-center">
+                                                <h4 class="text-left"><strong>답변에 댓글이 달림</strong></h4>
+                                                <textarea name="mentoringReply" id="mentoringReply" rows="10" class="form-control" data="10">@mentoringReply</textarea>
+                                                <div style="padding : 15 px 0 0 0 ;" class="az-gap">
+
+                                                </div>
+                                                <botten onclick="saveMessage(this)" class="btn-open-popup btn green">내용저장</botten>
+                                            </div>
+                                    <div class="col-md-6 text-center">
+                                        <h4 class="text-left"><strong>답변의 평가가 달림</strong></h4>
+                                        <textarea name="mentoringEvaluation" id="mentoringEvaluation" rows="10" class="form-control" data="11">@mentoringEvaluation</textarea>
+                                        <div style="padding : 15 px 0 0 0 ;" class="az-gap">
+
+                                        </div>
+                                        <botten onclick="saveMessage(this)" class="btn-open-popup btn green">내용저장</botten>
+                                    </div>
+                                        </div>
+                                    </div>
+                                </div><!-- .block-2-->
+                                <div style="padding : 30 px 0 0 0 ;" class="az-gap">
+
+                                </div>
+                                <div class="block-3">
+                                    <div class="az-container-style-1">
+                                        <h3 class="well text-center no-margin"><strong>풀어주세요</strong></h3>
+                                        <div class="row">
+                                            <div class="col-md-4 text-center">
+                                                <h4 class="text-left"><strong>신고접수</strong></h4>
+                                                <textarea name="report" id="report" rows="10" class="form-control" data="12">@report</textarea>
+                                                <div style="padding : 15 px 0 0 0 ;" class="az-gap">
+
+                                                </div>
+                                                <botten onclick="saveMessage(this)" class="btn-open-popup btn green">내용저장</botten>
+                                            </div>
+                                    <div class="col-md-4 text-center">
+                                        <h4 class="text-left"><strong>채택취소</strong></h4>
+                                        <textarea name="choiceCancel" id="choiceCancel" rows="10" class="form-control" data="13">@choiceCancel</textarea>
+                                        <div style="padding : 15 px 0 0 0 ;" class="az-gap">
+
+                                        </div>
+                                        <botten onclick="saveMessage(this)" class="btn-open-popup btn green">내용저장</botten>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <h4 class="text-left"><strong>환급완료</strong></h4>
+                                        <textarea name="refund" id="refund" rows="10" class="form-control" data="14">@refund</textarea>
+                                        <div style="padding : 15 px 0 0 0 ;" class="az-gap">
+
+                                        </div>
+                                        <botten onclick="saveMessage(this)" class="btn-open-popup btn green">내용저장</botten>
+                                    </div>
+                                        </div>
+                                    </div>
+                                </div><!-- .block-3-->
+                                </div><!-- .push-auto-->
+                            </div><!-- .tab-push-mentor-auto-->
+                        </div>
+                    </div>
+                </div><!-- .block-tab-->
+            </div><!-- .push-main-->
+        </div><!-- .page-content-->
+    </div> <!-- .push-->
+
+    <script>
+        function saveMessage(element) {
+            if(confirm("해당내용을 저장 하시겠습니까?")){
+                var message = $(element).parents().find("textarea").val();
+                var id = $(element).parents().find("textarea").attr("data");
+
+                 $.ajax({
+                    type: 'POST',
+                    url: '@controllers.admin.routes.AdminPushController.updateMessage()',
+                    data:  '{"message": "'+ message +'", "id": "'+ id  +'"}',
+                    dataType:  'text',
+                    contentType:'application/json',
+                    success: function(result) {
+                        if(result == "success"){
+                            alert("메세지 저장이 성공하였습니다.")
+                        }else{
+                            alert("메세지 저장이 실패하였습니다.")
+                        }
+                    }
+                });
+            }
+
+        }
+    </script>
+}

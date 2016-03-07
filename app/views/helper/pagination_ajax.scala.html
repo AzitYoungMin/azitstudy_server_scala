@@ -1,0 +1,53 @@
+@(page:Int, pageLength:Int, collectionLength:Long, route:Int => Call, bound:Int = 6,selector: String)
+@lowbound() = @{
+    ((page.toDouble / bound).floor * bound).toInt
+}
+@highbound() = @{
+    if ((lowbound() + bound) * pageLength >= collectionLength)
+        (collectionLength / pageLength + 1).toInt
+    else
+        lowbound() + bound
+}
+
+        <ul class="pagination">
+       
+            @if(page == 1){
+                <li><a href="#">Previous</a></li>
+            } else {
+                <li class="paginate_button"><a href="#" onclick="loadAjaxPackage('@selector','@route(page-1)');return false;">Previous</a></li>
+
+            }
+
+            @if(page < bound) {
+                <li class="page-numbers disabled"><a href="#">&laquo;</a></li>
+            } else {
+                @if(lowbound()-bound <= 0) {
+                    <li class="page-numbers"><a onclick="loadAjaxPackage('@selector','@route(1)');return false;" href="#">&laquo;</a></li>
+                } else {
+                    <li class="page-numbers"><a onclick="loadAjaxPackage('@selector','@route(lowbound()-bound)');return false;" href="#">&laquo;</a></li>
+                }
+            }
+
+            @for(i <- lowbound().max(1) until page) {
+                <li class="page-numbers"><a onclick="loadAjaxPackage('@selector','@route(i)');return false;" href="#">@i</a></li>
+            }
+
+            <li class="paginate_button active"><a href="#">@page</a></li>
+
+            @for(i <- page+1 to highbound()) {
+                <li class="page-numbers"><a onclick="loadAjaxPackage('@selector','@route(i)');return false;" href="#">@i</a></li>
+            }
+
+            @if(highbound() * pageLength <= collectionLength && highbound() > page && page * pageLength != collectionLength) {
+                <li class="page-numbers"><a onclick="loadAjaxPackage('@selector','@route(highbound())');return false;" href="#">&raquo;</a></li>
+            } else {
+                <li class="page-numbers disabled"><a href="#">&raquo;</a></li>
+            }
+
+            @if(page < highbound()) {
+                <li class="page-numbers next"><a onclick="loadAjaxPackage('@selector','@route(page+1)');return false;" href="#">Next</a></li>
+            } else {
+                <li class="page-numbers disabled"><a href="#">Next</a></li>
+
+            }
+        </ul>

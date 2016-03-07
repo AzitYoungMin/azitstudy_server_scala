@@ -1,0 +1,292 @@
+@(less: String, more: String, clinicReply: String, mentoringReply: String, report: String, exam: String, choice: String, lessDay: String, lessHour: Int, lessMinute: Int, moreDay: String, moreHour: Int, moreMinute: Int)
+
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="push page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li><span>푸쉬</span></li>
+                </ul>
+            </div><!-- .page-bar-->
+            <div class="push-main az-pb-50">
+                <div class="block-tab">
+                    <div class="tabbable-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="/admin/push/student/auto">학생(자동)</a></li>
+                            <li><a href="/admin/push/student/manual">학생(수동)</a></li>
+                            <li><a href="/admin/push/mentor/auto">멘토(자동)</a></li>
+                            <li><a href="/admin/push/mentor/manual">멘토(수동)</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-push-student-auto" class="tab-push-student-auto tab-pane active">
+                                <div class="block-wrapper az-pb-50">
+                                    <div class="block-1">
+                                        <div class="az-container-style-1"><h4><strong>
+                                            하루 목표 시간 <i class="fa fa-angle-right"></i>하루 공부 시간</strong></h4>
+                                            <div class="row">
+                                                <div class="col-md-5 text-center">
+                                                    <textarea name="less" id="less" rows="10" class="form-control" data="1">@less</textarea>
+                                                    <div style="padding : 15px 0px 0px 0px ;" class="az-gap"></div>
+                                                    <botten id="btnLess" onclick="saveMessage('less')" class="btn-open-popup btn green">내용저장</botten>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="portlet light bordered">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject bold font-grey-gallery uppercase">요일 </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="portlet-body">
+                                                            <div data-toggle="buttons" class="az-btn-checkbox-wrapper">
+                                                                <label class="btn btn-default" id="lessDay1">
+                                                                    <input type="checkbox" name="lessDay" value="1" class="toggle"/>월
+                                                                </label>
+                                                                <label class="btn btn-default" id="lessDay2">
+                                                                    <input type="checkbox" name="lessDay" value="2" class="toggle"/>화
+                                                                </label>
+                                                                <label class="btn btn-default" id="lessDay3">
+                                                                    <input type="checkbox" name="lessDay" value="3" class="toggle"/>수
+                                                                </label>
+                                                                <label class="btn btn-default" id="lessDay4">
+                                                                    <input type="checkbox" name="lessDay" value="4" class="toggle"/>목
+                                                                </label>
+                                                                <label class="btn btn-default" id="lessDay5">
+                                                                    <input type="checkbox" name="lessDay" value="5" class="toggle"/>금
+                                                                </label>
+                                                                <label class="btn btn-default" id="lessDay6">
+                                                                    <input type="checkbox" name="lessDay" value="6" class="toggle"/>토
+                                                                </label>
+                                                                <label class="btn btn-default" id="lessDay7" >
+                                                                    <input type="checkbox" name="lessDay" value="7" class="toggle"/>일
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet light bordered">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject bold font-grey-gallery uppercase">시간 </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="portlet-body">
+                                                            <select id="lessHour" class="form-control input-inline input-small">
+                                                                @for(i <- 0 to 23){
+                                                                    <option value="@i">@i</option>
+                                                                }
+                                                            </select>
+                                                            <span style="margin-right : 15px ;" class="help-inline">시</span>
+                                                            <select id="lessMinute" class="form-control input-inline input-small">
+                                                                @for(i <- 1 to 59){
+                                                                    <option value="@i">@i</option>
+                                                                }
+                                                            </select>
+                                                            <span class="help-inline">분</span>
+                                                            <script>
+                                                                var lessDay = '@lessDay'
+                                                                var splitDay = lessDay.split(",");
+                                                                for (i = 0; i < splitDay.length; i++) {
+                                                                    var temp = splitDay[i];
+                                                                    if(temp == 1){
+                                                                        var index = i + 1;
+                                                                        $("#lessDay" + index).addClass("active");
+                                                                        $("#lessDay" + index +" input").prop('checked', true);
+                                                                    }
+                                                                }
+                                                              $("#lessHour").val("@lessHour");
+                                                              $("#lessMinute").val("@lessMinute");
+                                                           </script>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- .block-1-->
+                                    <div class="block-2">
+                                        <div class="az-container-style-1">
+                                            <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px; margin : 0px 0px 15px 0px;" class="az-gap"></div>
+                                            <h4><strong>하루 목표 시간 <i class="fa fa-angle-left"></i>하루 공부 시간</strong></h4>
+                                            <div class="row">
+                                                <div class="col-md-5 text-center">
+                                                    <textarea name="more" id="more" rows="10" class="form-control" data="2">@more</textarea>
+                                                    <div style="padding : 15px 0px 0px 0px ;" class="az-gap"></div>
+                                                    <botten id="btnMore" onclick="saveMessage('more')" class="btn-open-popup btn green">내용저장</botten>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="portlet light bordered">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject bold font-grey-gallery uppercase">
+                                                                    요일 </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="portlet-body">
+                                                            <div data-toggle="buttons" class="az-btn-checkbox-wrapper">
+                                                                <label class="btn btn-default" id="moreDay1"><input type="checkbox" name="moreDay" value="1" class="toggle"/>
+                                                                    월</label>
+                                                                <label class="btn btn-default" id="moreDay2"><input type="checkbox" name="moreDay" value="2" class="toggle"/>
+                                                                    화</label>
+                                                                <label class="btn btn-default" id="moreDay3"><input type="checkbox" name="moreDay" value="3" class="toggle"/>
+                                                                    수</label>
+                                                                <label class="btn btn-default" id="moreDay4"><input type="checkbox" name="moreDay" value="4" class="toggle"/>
+                                                                    목</label>
+                                                                <label class="btn btn-default" id="moreDay5"><input type="checkbox" name="moreDay" value="5" class="toggle"/>
+                                                                    금</label>
+                                                                <label class="btn btn-default" id="moreDay6"><input type="checkbox" name="moreDay" value="6" class="toggle"/>
+                                                                    토</label>
+                                                                <label class="btn btn-default" id="moreDay7"><input type="checkbox" name="moreDay" value="7" class="toggle"/>
+                                                                    일</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet light bordered">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <span class="caption-subject bold font-grey-gallery uppercase">시간 </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="portlet-body">
+                                                            <select id="moreHour" class="form-control input-inline input-small">
+                                                            @for(i <- 0 to 23){
+                                                                <option value="@i">@i</option>
+                                                            }
+                                                            </select>
+                                                            <span style="margin-right : 15px ;" class="help-inline">시</span>
+                                                            <select id="moreMinute" class="form-control input-inline input-small">
+                                                            @for(i <- 1 to 59){
+                                                                <option value="@i">@i</option>
+                                                            }
+                                                            </select>
+                                                            <span class="help-inline">분</span>
+                                                            <script>
+                                                                var moreDay = '@moreDay'
+                                                                var splitDay = moreDay.split(",");
+                                                                for (i = 0; i < splitDay.length; i++) {
+                                                                    var temp = splitDay[i];
+                                                                    if(temp == 1){
+                                                                        var index = i + 1;
+                                                                        $("#moreDay" + index).addClass("active");
+                                                                        $("#moreDay" + index +" input").prop('checked', true);
+                                                                    }
+                                                                }
+                                                              $("#moreHour").val("@moreHour");
+                                                              $("#moreMinute").val("@moreMinute");
+                                                           </script>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- .block-2-->
+                                    <div class="block-3">
+                                        <div class="az-container-style-1">
+                                            <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 0px 0px 15px 0px ;" class="az-gap">
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 text-center">
+                                                    <h4 class="text-left"><strong>풀어주세요에서 멘토의 답변이 달림</strong></h4>
+                                                    <textarea name="clinicReply" id="clinicReply" rows="10" class="form-control" data="3">@clinicReply</textarea>
+                                                    <div style="padding : 15px 0px 0px 0px ;" class="az-gap"></div>
+                                                    <botten id="btnClinicReply" onclick="saveMessage('clinicReply')" class="btn-open-popup btn green">내용저장</botten>
+                                                </div>
+                                                <div class="col-md-6 text-center">
+                                                    <h4 class="text-left"><strong>학습상담에서 멘토의 답변이 달림</strong></h4>
+                                                    <textarea name="mentoringReply" id="mentoringReply" rows="10" class="form-control" data="4">@mentoringReply</textarea>
+                                                    <div style="padding : 15px 0px 0px 0px ;" class="az-gap"></div>
+                                                    <botten id="btnMentoringReply" onclick="saveMessage('mentoringReply')" class="btn-open-popup btn green">내용저장</botten>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- .block-3-->
+                                    <div class="block-4">
+                                        <div class="az-container-style-1">
+                                            <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 0px 0px 15px 0px ;" class="az-gap"></div>
+                                            <div class="row">
+                                                <div class="col-md-6 text-center">
+                                                    <h4 class="text-left"><strong>신고접수 되었을 때</strong></h4>
+                                                    <textarea name="report" id="report" rows="10" class="form-control" data="5">@report</textarea>
+                                                    <div style="padding : 15px 0px 0px 0px ;" class="az-gap"></div>
+                                                    <botten id="btnReport" onclick="saveMessage('report')" class="btn-open-popup btn green">내용저장</botten>
+                                                </div>
+                                                <div class="col-md-6 text-center">
+                                                    <h4 class="text-left"><strong>모의고사 미입력시</strong></h4>
+                                                    <textarea name="exam" id="exam" rows="10" class="form-control" data="6">@exam</textarea>
+                                                    <div style="padding : 15px 0px 0px 0px ;" class="az-gap"></div>
+                                                    <botten id="btnExam" onclick="saveMessage('exam')" class="btn-open-popup btn green">내용저장</botten>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- .block-4-->
+                                    <div class="block-5">
+                                        <div class="az-container-style-1">
+                                            <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 0px 0px 15px 0px ;" class="az-gap"></div>
+                                            <div class="row">
+                                                <div class="col-md-6 text-center">
+                                                    <h4 class="text-left"><strong>채택 취소 요청이 이루어졌을 때</strong></h4>
+                                                    <textarea name="choice" id="choice" rows="10" class="form-control" data="7">@choice</textarea>
+                                                    <div style="padding : 15px 0px 0px 0px;" class="az-gap"></div>
+                                                    <botten id="btnChoice" onclick="saveMessage('choice')" class="btn-open-popup btn green">내용저장</botten>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- .block-5-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .block-tab-->
+            </div><!-- .push-main-->
+        </div><!-- .page-content-->
+    </div> <!-- .push-->
+    <script>
+        function saveMessage(element) {
+            if(confirm("해당내용을 저장 하시겠습니까?")){
+                var message = $('#'+element).val();
+                var id = $('#'+element).attr("data");
+                var checkedVal = new Array();
+                var hour = 0;
+                var minute = 0;
+
+                if(id == 1){
+                    $(":checkbox[name='lessDay']").each(function(pi,po){
+                        if(po.checked){
+                            checkedVal[pi] = 1
+                        }else{
+                            checkedVal[pi] = 0
+                        }
+                    });
+                    hour = $("#lessHour").val()
+                    minute = $("#lessMinute").val()
+
+                }else if(id == 2){
+                    $(":checkbox[name='moreDay']").each(function(pi,po){
+                        if(po.checked){
+                            checkedVal[pi] = 1
+                        }else{
+                            checkedVal[pi] = 0
+                        }
+                    });
+                    hour = $("#moreHour").val()
+                    minute = $("#moreMinute").val()
+
+                }else{
+                    checkedVal.push('0')
+                }
+                    $.ajax({
+                        type: 'POST',
+                        url: '@controllers.admin.routes.AdminPushController.updateMessage()',
+                        data:  '{"message": "'+ message +'", "id": "'+ id  +'", "day":"'+ checkedVal +'", "hour":"'+ hour +'", "minute":"'+ minute +'" }',
+                        dataType:  'text',
+                        contentType:'application/json',
+                        success: function(result) {
+                            if(result == "success"){
+                                alert("메세지 저장이 성공하였습니다.")
+                            }else{
+                                alert("메세지 저장이 실패하였습니다.")
+                            }
+                        }
+                    });
+            }
+        }
+    </script>
+}

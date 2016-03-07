@@ -1,0 +1,184 @@
+@import caseClasses.StudentsForGrade
+@(page: Int, pageSize: Int, year: Int, month: Int, title: String, list: List[StudentsForGrade], totalSize: Int, searchType: String, keyword: String, yearList: List[Option[Int]], monthList: List[Option[Int]], titleList: List[Option[String]])
+
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="student-grade page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li><span>학생성적관리</span></li>
+                </ul>
+            </div><!-- .page-bar-->
+            <div class="student-grade-main az-pb-50">
+                <div class="block-1">
+                    <div class="form-search-wrapper">
+                        <form action="" class="form-search form-horizontal az-container-style-1">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <select id="year" name="year" class="form-control input-inline input-small" onchange="yearChanged()">
+                                                    @for(year <- yearList){
+                                                        <option value="@year.get">@year.get</option>
+                                                    }
+                                                </select>
+                                                <span style="margin-right : 30px ;" class="help-inline">년</span>
+                                                <select id="month" name="month" class="form-control input-inline input-small" onchange="monthChanged()">
+                                                    @for(month <- monthList){
+                                                        <option value="@month.get">@month.get</option>
+                                                    }
+                                                </select>
+                                                <span style="margin-right : 30px ;" class="help-inline">월</span>
+                                                <select id="title" name="title" class="form-control input-inline input-small">
+                                                @for(title <- titleList){
+                                                    <option value="@title.get">@title.get</option>
+                                                }
+                                                </select>
+                                                <script>
+                                                  $("#year").val("@year");
+                                                  $("#month").val("@month");
+                                                  $("#title").val("@title");
+                                                  function yearChanged(){
+                                                    var year = $("#year").val();
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '@controllers.admin.routes.AdminGradeController.getMonthList()',
+                                                        data:  '{"year": "'+ year +'"}',
+                                                        dataType:  'text',
+                                                        contentType:'application/json',
+                                                        success: function(result) {
+                                                            var obj = JSON.parse(result);
+                                                            var list = JSON.parse(obj.month)
+                                                            var month = document.getElementById("month");
+                                                            $("#month").empty();
+                                                            for(i in list){
+                                                                var option = document.createElement("option");
+                                                                option.text = list[i];
+                                                                option.val = list[i];
+                                                                month.add(option);
+                                                            }
+                                                            monthChanged();
+                                                        }
+                                                    });
+                                                  }
+                                                  function monthChanged(){
+                                                    var year = $("#year").val();
+                                                    var month = $("#month").val();
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '@controllers.admin.routes.AdminGradeController.getTitleList()',
+                                                        data:  '{"year": "'+ year +'", "month": "'+ month +'"}',
+                                                        dataType:  'text',
+                                                        contentType:'application/json',
+                                                        success: function(result) {
+                                                            var obj = JSON.parse(result);
+                                                            var list = JSON.parse(obj.title)
+                                                            var title = document.getElementById("title");
+                                                            $("#title").empty();
+                                                            for(i in list){
+                                                                var option = document.createElement("option");
+                                                                option.text = list[i];
+                                                                option.val = list[i];
+                                                                title.add(option);
+                                                            }
+                                                        }
+                                                    });
+                                                  }
+                                               </script>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                                <select id="searchType" name="searchType" class="form-control">
+                                                    <option value="name">성명</option>
+                                                    <option value="email">이메일</option>
+                                                </select>
+                                                <script>
+                                                  $("#searchType").val("@searchType");
+                                               </script>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input name="keyword" type="search" value="@keyword" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn green btn-search">검색</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form><!-- .form-search-->
+                    </div><!-- .form-search-wrapper-->
+                    <div style="border-top : 1px solid #e1e1e1 ; padding-bottom : 15px ;" class="az-gap"></div>
+                    <div class="table-student-grade-mng table-responsive">
+                        <table class="table table-striped table-bordered table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">번호</th>
+                                    <th class="text-center">이름</th>
+                                    <th class="text-center">모의고사</th>
+                                    <th class="text-center">국어</th>
+                                    <th class="text-center">수학</th>
+                                    <th class="text-center">영어</th>
+                                    <th colspan="2" class="text-center">사탐</th>
+                                    <th colspan="2" class="text-center">과탐</th>
+                                    <th class="text-center">제2외국어</th>
+                                    <th class="text-center">입력여부</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for((student, index) <- list.zipWithIndex){
+                                    <tr>
+                                        <td>@{totalSize - index - (page-1) * pageSize}</td>
+                                        <td>@student.name</td>
+                                        <td>@student.exam</td>
+                                        @if(student.subject.isDefined){
+                                            <td>@student.subject.get.korean</td>
+                                            <td>@student.subject.get.math</td>
+                                            <td>@student.subject.get.english</td>
+                                        }else{
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        }
+                                        @if(student.social.isDefined){
+                                            <td>@student.social.get(0).title @student.social.get(0).score</td>
+                                            @if(student.social.get.length >= 2){
+                                                <td>@student.social.get(1).title @student.social.get(1).score</td>
+                                            }else{
+                                                <td>-</td>
+                                            }
+                                        }else{
+                                            <td>-</td>
+                                            <td>-</td>
+                                        }
+                                        @if(student.science.isDefined){
+                                            <td>@student.science.get(0).title @student.science.get(0).score</td>
+                                            @if(student.science.get.length >= 2){
+                                                <td>@student.science.get(1).title @student.science.get(1).score</td>
+                                            }else{
+                                                <td>-</td>
+                                            }
+                                        }else{
+                                            <td>-</td>
+                                            <td>-</td>
+                                        }
+                                        @if(student.foreign.isDefined){
+                                            <td>@student.foreign.get.title @student.foreign.get.score</td>
+                                        }else{
+                                            <td>-</td>
+                                        }
+                                        <td>@student.hasScore</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div><!--.table-student-grade-mng-->
+                    @helper.pagination(page, pageSize, totalSize, (p: Int) => controllers.admin.routes.AdminGradeController.list(p, year, month, title, searchType, keyword))
+                </div><!-- .block-1-->
+            </div><!-- .student-grade-main-->
+        </div><!-- .page-content-->
+    </div> <!-- .student-grade-->
+
+}

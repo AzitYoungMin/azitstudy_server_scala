@@ -1,0 +1,305 @@
+@import caseClasses.PostingContentsForAdmin
+@(posting: PostingContentsForAdmin)
+
+@views.html.admin.layout_admin("AZit admin") {
+    <div class="loosen-post-detail page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li><span>게시물 상세보기</span></li>
+                </ul>
+            </div><!-- .page-bar-->
+            <div class="loosen-post-detail-main az-pb-50">
+                <div class="block-this-post">
+                    <div class="az-container-style-1">
+                        <div class="post">
+                            <div class="post-info">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-4"><strong>번호: </strong></div>
+                                            <div class="col-md-8">105</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-4"><strong>일시: </strong></div>
+                                            <div class="col-md-8">@posting.created_at.get</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding-bottom: 15px ;" class="az-gap"></div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-4"><strong>닉네임 </strong>:</div>
+                                            <div class="col-md-8">@posting.writer.get</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-4"><strong>좋아요 </strong>:</div>
+                                            <div class="col-md-8">3</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- .post-info-->
+                            <div style="border-bottom: 1px solid #e1e1e1 ; padding: 15px 0px 0px 0px ; margin: 0px 0px 15px 0px ;" class="az-gap"></div>
+                            <div class="post-content">
+                                <div class="az-container-style-1">
+                                    <div class="content-attach-image">
+                                        <ul class="az-ul">
+                                        @for(image <- posting.images.get) {
+                                            <li>
+                                                <image src="http://52.192.0.99:5000@image.image_url.get"></image>
+                                            </li>
+                                        }
+                                        </ul>
+                                    </div>
+                                    <div class="content">
+                                    @posting.article.get
+                                    </div>
+                                    <div class="content-button text-right">
+                                        <button type="button" onclick="setDeleteId(@posting.posting_id.get, 1)" data-toggle="modal" data-target="#popupConfirmDelete" class="btn-open-popup btn red">
+                                            삭제</button>
+                                    </div>
+                                </div>
+                            </div><!-- .post-content-->
+                        </div><!-- .post-->
+                    </div>
+                </div><!-- .block-this-post-->
+                <div style="padding : 50px 0px 0px 0px ;" class="az-gap"></div>
+                <div class="block-post-attach">
+                    <div class="az-container-style-1">
+                        @for(answer <- posting.answers.get) {
+                            <div class="block-post-attach-inner">
+                                    <!-- answer -->
+                                <div class="this-post-attach">
+                                    <div class="portlet light">
+                                        <div class="post">
+                                            <div class="post-info">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="col-md-4"><strong>닉네임 </strong>:</div>
+                                                            <div class="col-md-8">@answer.writer.get</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="col-md-4"><strong>일시: </strong></div>
+                                                            <div class="col-md-8">@answer.created_at.get</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="padding-bottom : 15px ;" class="az-gap"></div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="col-md-4"><strong>좋아요 </strong>:</div>
+                                                            <div class="col-md-8">0</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="col-md-4"><strong>채택: </strong></div>
+                                                            <div class="col-md-8">
+                                                            @if(answer.is_chosen.get) {
+                                                                <button type="button" onclick="setCancelId(@answer.answer_id.get)" data-toggle="modal" data-target="#popupConfirmAdoptedCancel" class="btn-open-popup btn green">
+                                                                    채택취소</button>
+                                                            }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- .post-info-->
+                                            <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 0px 0px 15px 0px ;" class="az-gap"></div>
+                                            <div class="post-content">
+                                                <div class="az-container-style-1">
+                                                    <div class="content">
+                                                    @answer.answer_article.get
+                                                    </div>
+                                                    <div style="border-bottom : 1 px solid #e1e1e1 ; padding : 15 px 0 px 0 px 0 px ; margin : 0 px 0 px 15 px 0 px ;" class="az-gap"></div>
+                                                    <div class="content-button text-right">
+                                                        <button type="button" onclick="setDeleteId(@answer.answer_id.get, 1)" data-toggle="modal" data-target="#popupConfirmDelete" class="btn-open-popup btn red">삭제</button>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- .post-content-->
+                                        </div> <!-- .post-->
+                                    </div>
+                                </div> <!-- .this-post-attach-->
+                                <!-- answer end-->
+                                <!-- answer reply-->
+                                @for(reply <- answer.replies.get) {
+                                    <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 0px 0px 15px 0px ;" class="az-gap"></div>
+                                    <div class="this-post-attach-comment">
+                                        <div class="portlet light">
+                                            <div class="post">
+                                                <div class="post-info">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-4"><strong>닉네임 </strong>:</div>
+                                                                <div class="col-md-8">@reply.writer.get</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-4"><strong>일시: </strong></div>
+                                                                <div class="col-md-8">@reply.created_at.get</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding-bottom : 15px ;" class="az-gap"></div>
+                                                    <div class="row"><div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="col-md-4"><strong>좋아요 </strong>:</div>
+                                                            <div class="col-md-8">@reply.num_of_like.get</div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div> <!-- .post-info-->
+                                                <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 0px 0px 15px 0px ;" class="az-gap"></div>
+                                                <div class="post-content">
+                                                    <div class="az-container-style-1">
+                                                        <div class="content">
+                                                        @reply.reply_article.get
+                                                        </div>
+                                                        <div class="content-button text-right">
+                                                            <button type="button" onclick="setDeleteId(@reply.reply_id, 2)" data-toggle="modal" data-target="#popupConfirmDelete" class="btn-open-popup btn red">삭제</button>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- .post-content-->
+                                            </div> <!-- .post-->
+                                        </div>
+                                    </div> <!-- .this-post-attach-comment-->
+                                        <!-- answer reply end-->
+                                }
+                            </div>
+                        }
+                        <div class="block-post-attach-inner">
+                        @for(reply <- posting.replies.get) {
+                                <!-- reply -->
+                            <div class="this-post-attach">
+                                <div class="portlet light">
+                                    <div class="post">
+                                        <div class="post-info">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-4"><strong>닉네임 </strong>:</div>
+                                                        <div class="col-md-8">@reply.writer.get</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-4"><strong>일시: </strong></div>
+                                                        <div class="col-md-8">@reply.created_at.get</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-bottom : 15px ;" class="az-gap"></div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-4"><strong>좋아요 </strong>:</div>
+                                                        <div class="col-md-8">0</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- .post-info-->
+                                        <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 0px 0px 15px 0px ;" class="az-gap"></div>
+                                        <div class="post-content">
+                                            <div class="az-container-style-1">
+                                                <div class="content">
+                                                @reply.reply_article.get
+                                                </div>
+                                                <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 0px 0px 15px 0px ;" class="az-gap"></div>
+                                                <div class="content-button text-right">
+                                                    <button type="button" onclick="setDeleteId(@reply.reply_id, 2)" data-toggle="modal" data-target="#popupConfirmDelete" class="btn-open-popup btn red">삭제</button>
+                                                </div>
+                                            </div>
+                                        </div> <!-- .post-content-->
+                                    </div> <!-- .post-->
+                                </div>
+                            </div> <!-- .this-post-attach-->
+                                <!-- reply end-->
+                            <div style="border-bottom : 1px solid #e1e1e1 ; padding : 15px 0px 0px 0px ; margin : 0px 0px 15px 0px ;" class="az-gap"></div>
+                        }
+                        </div>
+                    </div>
+                </div><!-- .block-post-attach-->
+                <div class="block-back-button text-center">
+                    <div class="az-container-style-1">
+                        <div style="border-bottom : 1px solid #e1e1e1 ; padding : 40px 0px 0px 0px ; margin : 0px 0px 40px 0px ;" class="az-gap"></div>
+                        <a href="/admin/boards/question/list" class="btn-open-popup btn green">목록</a>
+                    </div>
+                </div><!-- .block-back-button-->
+            </div><!-- .loosen-post-detail-main-->
+        </div><!-- .page-content-->
+    </div> <!-- .loosen-post-detail-->
+
+    <div id="popupConfirmAdoptedCancel" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>
+                        <strong>채택을 취소하시겠습니까?</strong><!-- Are you sure you want to adopt?-->
+                    </h4>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="cancelId"/>
+                    <button type="button" onclick="action()" class="btn green btn-confirm">확인</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-default">취소</button>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .popupConfirmAdoptedCancel-->
+    <div id="popupConfirmDelete" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>
+                        <strong>삭제하시겠습니까?</strong><!-- Are you sure you want to delete?-->
+                    </h4>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="deleteId"/>
+                    <button type="button" onclick="action()" class="btn green btn-confirm">확인</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-default">취소</button>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .popupConfirmDelete-->
+    <script>
+        var actionType = 0;
+
+        function setCancelId(id){
+            $("#cancelId").val(id);
+            actionType = 3;
+        }
+        function setDeleteId(id, type){
+            $("#deleteId").val(id);
+            actionType = type;
+        }
+        function action(){
+            //action type : 1 - delete posting, 2 = delete reply, 3 = cancel choice
+            if(actionType == 1){
+                var id = $("#deleteId").val();
+                location.href = "/admin/boards/question/detail?id=@posting.posting_id&deletePosting=" + id;
+            }else if(actionType == 2){
+                var id = $("#deleteId").val();
+                location.href = "/admin/boards/question/detail?id=@posting.posting_id&deleteReply=" + id;
+            }else if(actionType == 3){
+                var id = $("#cancelId").val();
+                location.href = "/admin/boards/question/detail?id=@posting.posting_id&choiceCancel=" + id;
+            }
+        }
+    </script>
+}
